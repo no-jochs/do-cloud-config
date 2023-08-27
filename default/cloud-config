@@ -1,0 +1,32 @@
+#cloud-config
+# userdata file for a standard linux node hosted on DigitalOcean
+
+package_update: true
+
+packages:
+  - zsh
+  - vim
+  - neovim
+  - rsnapshot
+  - mosh
+  - tmux
+
+users:
+  - name: jochs
+    groups: sudo
+    shell: /usr/bin/zsh
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB2sIhAxG4QsAPozxfD4Hx5lSuHMUYdNKt1vCVgYaZp jochs@Johns-MacBook-Pro.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoYUWuOLJicSXu80qA2vfT6Mm2jBxQnS5WsTee3oAEnTlYc7ZEsRhhLV5nvDtG4/QGA//xHVTeNeIOnN70T25m11uEcjgAI3vHsajE6V8Ywy9fqQxh7y/1Y/EqGSOeLcq/bSbdh1nxpLPyW1uvFAGy/l+7Jrhj8aSRkBCF/O8GZr9+YuTP5oCZKJ2mMN8obBOnMFz4pLguLq4wHFp4cct8A7Vbf1pxklpTCXckNSRbJLl3omODMNg5qkasE0vgyFVIJKvZOYlzUvzz61QGww0HBrOPo6yrN61jCHehXwfyZEJxMNpHsfGsU8lZ1Uq310gBv7Z3t3RHE0pg4j3ZAnOG/5l90M67C907U0SclNgd5XVgkK1WeI9aDCtbC3LPBsJjN/FNTXCdhxQKVqC7DBp9J8qL1eimntvsGKHUBvlyapksEZY2iVICycdJgPW5IQZgXc00+l7bFxWK5m6md4qHTdkPK+3TM3QRZWKPpHkCQqBCllNme7PMwc9VZQT0xis= jochs@JHOMBP-M1.local
+
+chpasswd:
+  list: |
+    root:XQFMdTeR0Wf3ztvnDcXSYY6y
+    jochs:Sp0WxF92gputeagduQnysjYb
+    expire: true
+
+runcmd:
+  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  - chsh -s /usr/bin/zsh root
+  - sysctl -w net.ipv4.ip_forward=1
