@@ -2,7 +2,7 @@
 # Cloud-Config for a generic Ubuntu server.
 
 users:
-  - name: jochs
+  - name: mongoadmin
     ssh-authorized-keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoYUWuOLJicSXu80qA2vfT6Mm2jBxQnS5WsTee3oAEnTlYc7ZEsRhhLV5nvDtG4/QGA//xHVTeNeIOnN70T25m11uEcjgAI3vHsajE6V8Ywy9fqQxh7y/1Y/EqGSOeLcq/bSbdh1nxpLPyW1uvFAGy/l+7Jrhj8aSRkBCF/O8GZr9+YuTP5oCZKJ2mMN8obBOnMFz4pLguLq4wHFp4cct8A7Vbf1pxklpTCXckNSRbJLl3omODMNg5qkasE0vgyFVIJKvZOYlzUvzz61QGww0HBrOPo6yrN61jCHehXwfyZEJxMNpHsfGsU8lZ1Uq310gBv7Z3t3RHE0pg4j3ZAnOG/5l90M67C907U0SclNgd5XVgkK1WeI9aDCtbC3LPBsJjN/FNTXCdhxQKVqC7DBp9J8qL1eimntvsGKHUBvlyapksEZY2iVICycdJgPW5IQZgXc00+l7bFxWK5m6md4qHTdkPK+3TM3QRZWKPpHkCQqBCllNme7PMwc9VZQT0xis= jochs@JHOMBP-M1.local
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB2sIhAxG4QsAPozxfD4Hx5lSuHMUYdNKt1vCVgYaZp jochs@Johns-MacBook-Pro.local
