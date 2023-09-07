@@ -188,8 +188,7 @@ packages:
   - whois
 runcmd:
   - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  - chsh -s /usr/bin/zsh root
-  - sysctl -w net.ipv4.ip_forward=1
+  - curl -sSL https://repos.insights.digitalocean.com/install.sh | sudo bash
 power_state:
   timeout: 30
   delay: "now"
