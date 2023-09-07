@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+download_binary=$(command -v curl || command -v wget || echo 'No curl or wget in PATH!' && exit 1)
+
+# Do we want to do this in a subshell?
+(
+  if [[ $(id --user) -ne 0 ]]; then
+    sudo -n su -l -
+  fi
+)

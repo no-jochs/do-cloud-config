@@ -1,5 +1,4 @@
-# cloud-config
-# userdata file for a standard linux node hosted on DigitalOcean
+#cloud-config
 users:
   - name: jochs
     groups: sudo
@@ -7,12 +6,12 @@ users:
     shell: /usr/bin/zsh
     sudo: "ALL=(ALL) NOPASSWD:ALL"
     ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB2sIhAxG4QsAPozxfD4Hx5lSuHMUYdNKt1vCVgYaZp jochs@Johns-MacBook-Pro.local
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoYUWuOLJicSXu80qA2vfT6Mm2jBxQnS5WsTee3oAEnTlYc7ZEsRhhLV5nvDtG4/QGA//xHVTeNeIOnN70T25m11uEcjgAI3vHsajE6V8Ywy9fqQxh7y/1Y/EqGSOeLcq/bSbdh1nxpLPyW1uvFAGy/l+7Jrhj8aSRkBCF/O8GZr9+YuTP5oCZKJ2mMN8obBOnMFz4pLguLq4wHFp4cct8A7Vbf1pxklpTCXckNSRbJLl3omODMNg5qkasE0vgyFVIJKvZOYlzUvzz61QGww0HBrOPo6yrN61jCHehXwfyZEJxMNpHsfGsU8lZ1Uq310gBv7Z3t3RHE0pg4j3ZAnOG/5l90M67C907U0SclNgd5XVgkK1WeI9aDCtbC3LPBsJjN/FNTXCdhxQKVqC7DBp9J8qL1eimntvsGKHUBvlyapksEZY2iVICycdJgPW5IQZgXc00+l7bFxWK5m6md4qHTdkPK+3TM3QRZWKPpHkCQqBCllNme7PMwc9VZQT0xis= jochs@jhombp-m1.local
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOtEAzVRjcSIcQTBQcCwYtQhR0fySaddTVyzuC2MC8ObNdQxKZKEv3qi5Rip3j+9/cuAW3wliH7d1WElORwCd6E=
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIsIWAIdJkIUqBr+efSD12QnwHp8JOCjt9AYLbSksKjD
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsNW48dWx4YZ1oC3vKqSUC90hNqna2t4Bkz0tk3QZENykK4d4TRM9bYadPQbDPth+q9su++PtKc4pFwkHsYNl6akvFmOz2SvygibGukYWvZIBY/n2CIEWTb8aBqi7sC1bh4LJ5YsslxM2SC7bZqj7UJRZZIAz5JYQ1p2kBtXoFk6/O4TtUzIIyAndSOXRGC2EeuH/HgWQPTs/8iIxTxRuy0vkZNvRaCq0i10PRSEkBfIC/JCYna5RSiKhQ+atJAQ2RoGQJxcH2ZRwlJogcRyOpA0paEJuqr+VFwsNyYCPqCudAtwNPePB5aR0Xti1pAk5Zk/ywT2vXv6voEgqa4aav
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFT3zbPPn5WRjA7k5wog8p/LiwDh4DIXXjEgLR+tjPRzfmiawyEZvr9PjT3xmDmMPRvV3Y2J4S/YezFqnpTRgno= Public key for PIV Authentication
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoYUWuOLJicSXu80qA2vfT6Mm2jBxQnS5WsTee3oAEnTlYc7ZEsRhhLV5nvDtG4/QGA//xHVTeNeIOnN70T25m11uEcjgAI3vHsajE6V8Ywy9fqQxh7y/1Y/EqGSOeLcq/bSbdh1nxpLPyW1uvFAGy/l+7Jrhj8aSRkBCF/O8GZr9+YuTP5oCZKJ2mMN8obBOnMFz4pLguLq4wHFp4cct8A7Vbf1pxklpTCXckNSRbJLl3omODMNg5qkasE0vgyFVIJKvZOYlzUvzz61QGww0HBrOPo6yrN61jCHehXwfyZEJxMNpHsfGsU8lZ1Uq310gBv7Z3t3RHE0pg4j3ZAnOG/5l90M67C907U0SclNgd5XVgkK1WeI9aDCtbC3LPBsJjN/FNTXCdhxQKVqC7DBp9J8qL1eimntvsGKHUBvlyapksEZY2iVICycdJgPW5IQZgXc00+l7bFxWK5m6md4qHTdkPK+3TM3QRZWKPpHkCQqBCllNme7PMwc9VZQT0xis= jochs@jhombp-m1.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsNW48dWx4YZ1oC3vKqSUC90hNqna2t4Bkz0tk3QZENykK4d4TRM9bYadPQbDPth+q9su++PtKc4pFwkHsYNl6akvFmOz2SvygibGukYWvZIBY/n2CIEWTb8aBqi7sC1bh4LJ5YsslxM2SC7bZqj7UJRZZIAz5JYQ1p2kBtXoFk6/O4TtUzIIyAndSOXRGC2EeuH/HgWQPTs/8iIxTxRuy0vkZNvRaCq0i10PRSEkBfIC/JCYna5RSiKhQ+atJAQ2RoGQJxcH2ZRwlJogcRyOpA0paEJuqr+VFwsNyYCPqCudAtwNPePB5aR0Xti1pAk5Zk/ywT2vXv6voEgqa4aav
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB2sIhAxG4QsAPozxfD4Hx5lSuHMUYdNKt1vCVgYaZp jochs@Johns-MacBook-Pro.local
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIsIWAIdJkIUqBr+efSD12QnwHp8JOCjt9AYLbSksKjD
 write_files:
   - path: /etc/sysctl.conf
     content: |
@@ -97,12 +96,12 @@ write_files:
       LogLevel DEBUG2
       # Authentication:
       LoginGraceTime 1m
-      PermitRootLogin no
+      PermitRootLogin prohibit-password
       # StrictModes yes
       MaxAuthTries 6
       MaxSessions 5
       PubkeyAuthentication yes
-      PubkeyAuthOptions verify-required
+      PubkeyAuthOptions touch-required
       # Expect .ssh/authorized_keys2 to be disregarded by default in future.
       # AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
       # AuthorizedPrincipalsFile none
@@ -155,7 +154,7 @@ write_files:
       # Compression delayed
       # ClientAliveInterval 0
       # ClientAliveCountMax 3
-      UseDNS yes
+      # UseDNS yes
       # PidFile /var/run/sshd.pid
       # MaxStartups 10:30:100
       # PermitTunnel no
@@ -173,7 +172,7 @@ write_files:
       #	AllowTcpForwarding no
       #	PermitTTY no
       #	ForceCommand cvs server
-      AllowUsers jochs
+      AllowUsers root jochs
 package_update: true
 package_upgrade: true
 packages:
@@ -187,7 +186,7 @@ packages:
   - tmux
   - whois
 runcmd:
-  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  - curl -sSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sudo bash
   - curl -sSL https://repos.insights.digitalocean.com/install.sh | sudo bash
 power_state:
   timeout: 30
