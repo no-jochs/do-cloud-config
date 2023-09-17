@@ -1,12 +1,56 @@
 #cloud-config
-# Cloud-Config for a generic Ubuntu server.
-
 users:
   - name: jochs
-    ssh-authorized-keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoYUWuOLJicSXu80qA2vfT6Mm2jBxQnS5WsTee3oAEnTlYc7ZEsRhhLV5nvDtG4/QGA//xHVTeNeIOnN70T25m11uEcjgAI3vHsajE6V8Ywy9fqQxh7y/1Y/EqGSOeLcq/bSbdh1nxpLPyW1uvFAGy/l+7Jrhj8aSRkBCF/O8GZr9+YuTP5oCZKJ2mMN8obBOnMFz4pLguLq4wHFp4cct8A7Vbf1pxklpTCXckNSRbJLl3omODMNg5qkasE0vgyFVIJKvZOYlzUvzz61QGww0HBrOPo6yrN61jCHehXwfyZEJxMNpHsfGsU8lZ1Uq310gBv7Z3t3RHE0pg4j3ZAnOG/5l90M67C907U0SclNgd5XVgkK1WeI9aDCtbC3LPBsJjN/FNTXCdhxQKVqC7DBp9J8qL1eimntvsGKHUBvlyapksEZY2iVICycdJgPW5IQZgXc00+l7bFxWK5m6md4qHTdkPK+3TM3QRZWKPpHkCQqBCllNme7PMwc9VZQT0xis= jochs@JHOMBP-M1.local
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB2sIhAxG4QsAPozxfD4Hx5lSuHMUYdNKt1vCVgYaZp jochs@Johns-MacBook-Pro.local
-      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOtEAzVRjcSIcQTBQcCwYtQhR0fySaddTVyzuC2MC8ObNdQxKZKEv3qi5Rip3j+9/cuAW3wliH7d1WElORwCd6E=
-    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     groups: sudo
-    shell: /bin/bash
+    passwd: "IL0veYouK33pGoing"
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    ssh_authorized_keys:
+      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOtEAzVRjcSIcQTBQcCwYtQhR0fySaddTVyzuC2MC8ObNdQxKZKEv3qi5Rip3j+9/cuAW3wliH7d1WElORwCd6E=
+      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFT3zbPPn5WRjA7k5wog8p/LiwDh4DIXXjEgLR+tjPRzfmiawyEZvr9PjT3xmDmMPRvV3Y2J4S/YezFqnpTRgno= Public key for PIV Authentication
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoYUWuOLJicSXu80qA2vfT6Mm2jBxQnS5WsTee3oAEnTlYc7ZEsRhhLV5nvDtG4/QGA//xHVTeNeIOnN70T25m11uEcjgAI3vHsajE6V8Ywy9fqQxh7y/1Y/EqGSOeLcq/bSbdh1nxpLPyW1uvFAGy/l+7Jrhj8aSRkBCF/O8GZr9+YuTP5oCZKJ2mMN8obBOnMFz4pLguLq4wHFp4cct8A7Vbf1pxklpTCXckNSRbJLl3omODMNg5qkasE0vgyFVIJKvZOYlzUvzz61QGww0HBrOPo6yrN61jCHehXwfyZEJxMNpHsfGsU8lZ1Uq310gBv7Z3t3RHE0pg4j3ZAnOG/5l90M67C907U0SclNgd5XVgkK1WeI9aDCtbC3LPBsJjN/FNTXCdhxQKVqC7DBp9J8qL1eimntvsGKHUBvlyapksEZY2iVICycdJgPW5IQZgXc00+l7bFxWK5m6md4qHTdkPK+3TM3QRZWKPpHkCQqBCllNme7PMwc9VZQT0xis= jochs@jhombp-m1.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsNW48dWx4YZ1oC3vKqSUC90hNqna2t4Bkz0tk3QZENykK4d4TRM9bYadPQbDPth+q9su++PtKc4pFwkHsYNl6akvFmOz2SvygibGukYWvZIBY/n2CIEWTb8aBqi7sC1bh4LJ5YsslxM2SC7bZqj7UJRZZIAz5JYQ1p2kBtXoFk6/O4TtUzIIyAndSOXRGC2EeuH/HgWQPTs/8iIxTxRuy0vkZNvRaCq0i10PRSEkBfIC/JCYna5RSiKhQ+atJAQ2RoGQJxcH2ZRwlJogcRyOpA0paEJuqr+VFwsNyYCPqCudAtwNPePB5aR0Xti1pAk5Zk/ywT2vXv6voEgqa4aav
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHB2sIhAxG4QsAPozxfD4Hx5lSuHMUYdNKt1vCVgYaZp jochs@Johns-MacBook-Pro.local
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIsIWAIdJkIUqBr+efSD12QnwHp8JOCjt9AYLbSksKjD
+package_update: true
+packages:
+  - zsh
+  - vim
+  - neovim
+  - rsnapshot
+  - mosh
+  - tmux
+  - iftop
+  - tmux
+  - whois
+package_upgrade: true
+runcmd:
+  - curl -sSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sudo bash
+  - curl -sSL https://repos.insights.digitalocean.com/install.sh | sudo bash
+  - sudo chsh -s /usr/bin/zsh jochs
+write_files:
+  - path: /etc/ssh/sshd_config
+    owner: root:root
+    permissions: "0644"
+    content: |
+      Include /etc/ssh/sshd_config.d/*.conf
+      Port 22122
+      AddressFamily any
+      LoginGraceTime 1m
+      PermitRootLogin prohibit-password
+      MaxAuthTries 6
+      MaxSessions 5
+      PubkeyAuthentication yes
+      PubkeyAuthOptions verify-required
+      PasswordAuthentication no
+      ChallengeResponseAuthentication no
+      UsePAM yes
+      X11Forwarding yes
+      PrintMotd no
+      UseDNS yes
+      AcceptEnv LANG LC_*
+      Subsystem	sftp	/usr/lib/openssh/sftp-server
+power_state:
+  timeout: 30
+  delay: "now"
+  message: "Rebooting VPS..."
+  mode: reboot
