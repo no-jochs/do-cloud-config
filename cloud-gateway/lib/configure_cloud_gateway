@@ -1,0 +1,164 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'ostruct'
+require 'struct'
+require 'json'
+require 'ipaddr'
+require 'uri'
+require 'active_support/hash_with_indifferent_access'
+require 'active_support/core_ext/hash/indifferent_access'
+require 'logger'
+
+logger = Logger.new($stdout, progname: $0)
+
+CONFIG_VAR_PARSER = {
+  METADATA_HOST_IP: ->(v) { IPAddr.new(v) },
+  METADATA_HOST_PATH: ->(v) { URI.parse(v).path },
+  GATEWAY_PUBLIC_IPV4: ->(v) { (IPAddr.new(v).private? || nil) || IPAddr.new(v) },
+  GATEWAY_PRIVATE_IPV4: ->(v) { (IPAddr.new(v).private? && IPAddr.new(v)) || nil }
+}
+
+script_opts = Struct.new('ScriptOptions', :interactive, :verbosity, :config_file_path)
+                    .new(interactive: false, verbosity: 1, config_file_path: nil)
+config_opts = Struct.new('ConfigOptions', *CONFIG_OPTS.keys.map(&:downcase)).new
+
+def assure_config_vars(config_file_path = script_opts.config_file_path)
+  logger.debug('In #assure_config_vars')
+  logger.debug("Configuration file path: #{config_file_path}") if config_file_path
+  config_hash = ActiveSupport::HashWithIndifferentAccess.new(
+    File.readable?(script_opts.config_file_path) &&
+      JSON.load_file(config_file_path).symbolize_keys || {}
+  )
+  logger.debug("Parsed configuration file with the following values:\n#{config_hash}")
+  CONFIG_VAR_PARSER.keys.map(&:intern).map(&:downcase).each do |key|
+    cvp_key = CONFIG_VAR_PARSER.keys.include?(key.upcase.intern) && key.upcase.intern || nil
+    ch_key = config_hash.keys.map(&:intern).map(&:downcase).include?(key) && key || nil
+    unless cvp_key && ch_key
+      logger.warn("Configuration variable #{cvp_key.to_sym} - config file key: #{ch_key || 'missing!'}")
+      next
+    end
+    parser = CONFIG_OPTS[cvp_key]
+    value = parser.call(config_hash[ch_key])
+    logger.error("Setting configuration variable #{cvp_key} to value #{value.inspect}")
+    config_opts[ch_key] = value
+  end
+  logger.debug("Parsed confuguration:\n#{config_opts.keys.map do |k|
+                                           k.to_s.rjust(25).concat(" -> #{config_opts[k]}")
+                                         end.join("\n")}\n")
+end
+
+def set_logger_level(level = 1)
+  logger.level = case (level || script_opts.verbosity)
+                 when nil then Logger::INFO
+                 when 0 || Logger::DEBUG then Logger::DEBUG
+                 when 1 || Logger::INFO then Logger::INFO
+                 when 2 || Logger::WARN then Logger::WARN
+                 when 3 || Logger::ERROR then Logger::ERROR
+                 else raise ScriptError, 'Invalid log level'
+                 end
+end
+
+def run_shell_command(command_string)
+  command_string = (Process.uid != 0 ? 'sudo --non-interactive su - ; ' : '') + command_string
+  logger.info("Executing shell command: '#{cmd_str}'")
+  result = `#{cmd_str}`
+  if $?.success?
+    logger.debug('Command was successful!')
+    return result
+  end
+  error_str = "Command '#{command_string}' failed with exit code: #{$?.exitstatus}"
+  logger.debug(error_str)
+  raise ScriptError, error_str
+end
+
+OptionParser.new do |parser|
+  parser.banner = 'Usage: configure_cloud_gateway [options]'
+  parser.on('-i', '--interactive', 'Run Interactively') do |_i|
+    script_opts.interactive = true
+  end
+  parser.on('-v', '--verbosity', 'Run with specified verbosity: 0 (Info) 1 (Debug) 2 (Error)') do |v|
+    script_opts.verbosity = case v
+                            when nil then Logger::INFO
+                            when /debug|0/i then Logger::DEBUG
+                            when /info|1/i then Logger::INFO
+                            when /warn|2/i then Logger::WARN
+                            when /error|3/i then Logger::ERROR
+                            else
+                              raise ArgumentError, "Invalid argument to verbose option: #{v}."
+                            end
+  end
+  parser.on('-c', '--config', 'Specify configuration file') do |file_path|
+    abs_path = File.absolute_path(file_path, __dir__)
+    raise ArgumentError, "No readable configuration file at #{abs_path}!" unless File.readable?(abs_path)
+
+    begin
+      JSON.load_file!(abs_path)
+    rescue StandardError => e
+      puts 'A problem occurred while reading the configuration file.'
+      raise e, e.message
+    end
+    script_opts.config_file_path = abs_path
+  end
+end.parse!
+
+set_logger_level(script_opts.verbosity)
+assure_config_vars(script_opts.config_file_path)
+
+if config_opts.metadata_host_ip.nil?
+metadata_host_uri = URI::HTTP.build(scheme: 'http', host: config_opts.metadata_host_ip.to_s,
+                                    path: config_opts.metadata_host_path)
+logger.debug("Requesting current gateway IP from: #{metadata_host_uri}")
+current_gateway_ip = IPAddr.new(run_shell_command("curl -s #{metadata_host_uri}").strip)
+
+if $?.exitcode != 0
+  logger.error("Failed to obtain current gateway from request to #{metadata_host_uri}")
+  exit 1
+end
+
+logger.info("Current gateway IP: #{current_gateway_ip}")
+
+md_route_cmd = "ip route add 169.254.169.254 via #{current_gateway_ip} dev eth0"
+run_shell_command(md_route_cmd)
+
+if config_opts.gateway_private_ipv4.nil? 
+
+
+
+
+if new_gateway_ip.nil?
+  logger.error('No value for new gateway private IPv4 address!')
+  if script_opts.interactive
+    ip = nil
+    while ip.nil?
+      print "Input new gateway private IPv4 address: "
+      ip = IPAddr.new(gets.chomp.strip).to_s rescue nil
+    end
+  else
+  raise ScriptError, "No value for new gateway private IPv4 address"
+  exit 2
+end
+# new_gateway_ip = if ENV.key?('GATEWAY_PRIVATE_IPV4')
+#   logger.debug('New gateway IP obtained from environment.')
+#   ENV.fetch('GATEWAY_PRIVATE_IPV4')
+# elsif !config_opts.gateway_private_ipv4.nil?
+#   logger.debug('New gateway IP obtained from configuration file.')
+#   config_opts.gateway_private_ipv4.to_s
+# elsif script_opts.interactive
+#   ip = nil
+#   while ip.nil?
+#     puts 'Please input private IPv4 address for new gateway: '
+#     input_ip = begin
+#       IPAddr.new(gets.chomp.strip)
+#     rescue StandardError
+#       nil
+#     end
+#     unless !input_ip.nil? && input_ip.private?
+#       puts 'Invalid address. Please try again...'
+#       next
+#     end
+#     ip = input_ip.to_s
+#   end
+#   ip
+# else
+#   raise ScriptError, 'Missing valid IPv4 address for new gateway!'
+# end

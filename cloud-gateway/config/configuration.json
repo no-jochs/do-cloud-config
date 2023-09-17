@@ -1,0 +1,6 @@
+{
+  "metadata_host_ip": "169.254.169.254",
+  "metadata_host_path": "/metadata/v1/interfaces/public/0/ipv4/gateway",
+  "gateway_public_ipv4": null,
+  "gateway_private_ipv4": null
+}
